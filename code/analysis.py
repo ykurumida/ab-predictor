@@ -25,7 +25,7 @@ def collect_data_mono(predictor_name, input_path):
                 if corr:
                     corr_list.append(float(corr.group(1)))
     print(predictor_name + ',' +
-          str(round(mean(corr_list), 4))+',' +
+          str(round(mean(corr_list), 2))+',' +
           str(round(stdev(corr_list)/10, 5)))
     return corr_list
 
@@ -33,16 +33,16 @@ def collect_data_mono(predictor_name, input_path):
 def main():
     df = pd.DataFrame()
     print('predictor name, mean, SE')
-    df['GPR'] = collect_data_mono('GPR', INPUT_PATH)
     for predictor in PREDICTOR_LIST:
         df[predictor] = collect_data_mono(predictor, INPUT_PATH)
-    df['SVR'] = collect_data_mono('SVR', INPUT_PATH)
-    #df['RFR'] = collect_data_mono('RFR', INPUT_PATH)
-    df['Cons4'] = collect_data_mono('cons4', INPUT_PATH)
     df['Cons3'] = collect_data_mono('cons3', INPUT_PATH)
-    df['GPR_4'] = collect_data_mono('GPR_4', INPUT_PATH)
+    df['Cons4'] = collect_data_mono('cons4', INPUT_PATH)
+    df['SVR'] = collect_data_mono('SVR', INPUT_PATH)
+    df['GPR'] = collect_data_mono('GPR', INPUT_PATH)
+    df['RFR'] = collect_data_mono('RFR', INPUT_PATH)
     df['SVR_4'] = collect_data_mono('SVR_4', INPUT_PATH)
-    #df['RFR_4'] = collect_data_mono('RFR_4', INPUT_PATH)
+    df['GPR_4'] = collect_data_mono('GPR_4', INPUT_PATH)
+    df['RFR_4'] = collect_data_mono('RFR_4', INPUT_PATH)
     if not os.path.isdir(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
     df.to_csv(os.path.join(OUTPUT_DIR, 'all_CV.csv'), index=None)

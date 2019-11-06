@@ -25,7 +25,7 @@ def collect_data_mono(predictor_name, input_path):
                 if corr:
                     corr_list.append(float(corr.group(1)))
     print(predictor_name + ',' +
-          str(round(mean(corr_list), 4))+',' +
+          str(round(mean(corr_list), 2))+',' +
           str(round(stdev(corr_list)/10, 5)))
     return corr_list
 
