@@ -18,14 +18,14 @@ args = sys.argv
 INPUT_PATH = args[1]
 SEED = int(args[2])
 NUM_SPLIT = 4
-CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'energy']
-CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'energy']
-FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS_BIND', 'mCSM', 'energy']
+CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'EXPL']
+CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'EXPL']
+FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS_BIND', 'mCSM', 'EXPL']
 
 
 def standardization(df):
-    y = df['energy']
-    X = df.drop('energy', axis=1)
+    y = df['EXPL']
+    X = df.drop('EXPL', axis=1)
     X = (X - X.values.mean()) / X.values.std(ddof=0)
     df = pd.concat([X, y], axis=1)
     return df
@@ -50,10 +50,10 @@ def calc_gpr(df, kf):
         # separeting data
         train_df = df_gpr.iloc[train]
         test_df = df_gpr.iloc[test]
-        train_X = train_df.drop('energy', axis=1)
-        train_y = train_df['energy']
-        test_X = test_df.drop('energy', axis=1)
-        test_y = test_df['energy']
+        train_X = train_df.drop('EXPL', axis=1)
+        train_y = train_df['EXPL']
+        test_X = test_df.drop('EXPL', axis=1)
+        test_y = test_df['EXPL']
 
         # training
         gp_rbf.fit(train_X, train_y)
@@ -75,10 +75,10 @@ def calc_svr(df, kf):
         # separeting data
         train_df = df_svr.iloc[train]
         test_df = df_svr.iloc[test]
-        train_X = train_df.drop('energy', axis=1)
-        train_y = train_df['energy']
-        test_X = test_df.drop('energy', axis=1)
-        test_y = test_df['energy']
+        train_X = train_df.drop('EXPL', axis=1)
+        train_y = train_df['EXPL']
+        test_X = test_df.drop('EXPL', axis=1)
+        test_y = test_df['EXPL']
 
         # training
         svr_rbf.fit(train_X, train_y)
@@ -99,10 +99,10 @@ def calc_rf(df, kf, seed):
         train, test = data
         train_df = df_rf.iloc[train]
         test_df = df_rf.iloc[test]
-        train_X = train_df.drop('energy', axis=1)
-        train_y = train_df['energy']
-        test_X = test_df.drop('energy', axis=1)
-        test_y = test_df['energy']
+        train_X = train_df.drop('EXPL', axis=1)
+        train_y = train_df['EXPL']
+        test_X = test_df.drop('EXPL', axis=1)
+        test_y = test_df['EXPL']
 
         # training
         forest = RandomForestRegressor(random_state=seed)
@@ -133,7 +133,7 @@ def calc_mono(df, kf):
         test_df = df_mono.iloc[test]
 
         mono_corr = test_df.corr(method='pearson')
-        mono_list.append(mono_corr['energy'])
+        mono_list.append(mono_corr['EXPL'])
 
     df_corr = pd.concat(mono_list, axis=1).mean(axis='columns')
     return df_corr
@@ -146,8 +146,8 @@ def calc_cons(df, kf):
     for data in kf.split(df_cons):
         train, test = data
         test_df = df_cons.iloc[test]
-        test_X = test_df.drop('energy', axis=1)
-        test_y = test_df['energy']
+        test_X = test_df.drop('EXPL', axis=1)
+        test_y = test_df['EXPL']
 
         test_cons = test_X.apply(calc_zscore, axis=0).sum(axis=1) / 3
         cons_corr = np.corrcoef(test_y, test_cons)[0, 1]
