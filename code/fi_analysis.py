@@ -11,7 +11,7 @@ def main():
         os.mkdir(OUTPUT_DIR)
     features_list = []
     for i in range(1, 101):
-        df_tmp = pd.read_csv(INPUT_DIR + str(i) + '.csv', index_col=0)
+        df_tmp = pd.read_csv(INPUT_DIR + '{}.csv'.format(str(i)), index_col=0)
         features_list.append(df_tmp)
     df = pd.concat(features_list, axis=1)
     df['mean'] = df.mean(axis=1)

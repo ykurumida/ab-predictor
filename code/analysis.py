@@ -10,8 +10,8 @@ OUTPUT_DIR = '../Output/analysis/'
 DATA_NUM = 100 + 1
 PREDICTOR_LIST = ['SIE-Scwrlmut', 'SIE-Rosmut', 'SIE-Rosiface-sc',
                   'SIE-RosCDR-loop', 'Rosmut', 'Rosiface-sc',
-                  'RosCDR-loop', 'FoldXB', 'FoldXS', 'DS_BIND',
-                  'DS_STABLE', 'mCSM']
+                  'RosCDR-loop', 'FoldXB', 'FoldXS', 'DS-B',
+                  'DS-S', 'mCSM']
 
 
 def collect_data_mono(predictor_name, input_path):

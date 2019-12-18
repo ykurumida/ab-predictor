@@ -20,7 +20,7 @@ SEED = int(args[2])
 NUM_SPLIT = 4
 CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'EXPL']
 CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'EXPL']
-FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS_BIND', 'mCSM', 'EXPL']
+FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS-B', 'mCSM', 'EXPL']
 
 
 def standardization(df):
@@ -28,11 +28,6 @@ def standardization(df):
     X = df.drop('EXPL', axis=1)
     X = (X - X.values.mean()) / X.values.std(ddof=0)
     df = pd.concat([X, y], axis=1)
-    return df
-
-
-def standardization_all(df):
-    df = (df - df.values.mean()) / df.values.std(ddof=1)
     return df
 
 
@@ -70,7 +65,11 @@ def calc_svr(df, kf):
     df_svr = df.copy()
     df_svr = standardization(df_svr)  # standardization
     for train, test in kf.split(df_svr):
-        svr_rbf = SVR(kernel='linear')
+        svr_rbf = SVR(kernel='rbf')
+        kernel = (sk_kern.RBF(1.0, (1e-3, 1e3)) +
+                  sk_kern.ConstantKernel(1.0, (1e-3, 1e3)) +
+                  sk_kern.WhiteKernel())
+
 
         # separeting data
         train_df = df_svr.iloc[train]
@@ -107,7 +106,7 @@ def calc_rf(df, kf, seed):
         # training
         forest = RandomForestRegressor(random_state=seed)
         params = {'n_estimators': [3, 10, 100, 1000, 10000]}
-        forest = GridSearchCV(forest, params, cv=4, scoring='r2', n_jobs=1)
+        forest = GridSearchCV(forest, params, cv=4, scoring='r2', n_jobs=1,iid=False)
         y_forest = forest.fit(train_X, train_y).predict(train_X)
 
         # varidation
@@ -117,12 +116,12 @@ def calc_rf(df, kf, seed):
 
         # feature importance
         df_fi[str(seed) + str(i)] = forest.best_estimator_.feature_importances_
-    return str(mean(Forest_corr_list))
 
     # feature importance
     df_fi.index = df.columns[0:-1]
     df_fi.to_csv('../Output/1/' + str(seed) + '.csv')
 
+    return str(mean(Forest_corr_list))
 
 def calc_mono(df, kf):
     mono_list = []
@@ -149,7 +148,7 @@ def calc_cons(df, kf):
         test_X = test_df.drop('EXPL', axis=1)
         test_y = test_df['EXPL']
 
-        test_cons = test_X.apply(calc_zscore, axis=0).sum(axis=1) / 3
+        test_cons = test_X.apply(calc_zscore, axis=0).sum(axis=1) 
         cons_corr = np.corrcoef(test_y, test_cons)[0, 1]
         cons_list.append(cons_corr)
     return str(mean(cons_list))
