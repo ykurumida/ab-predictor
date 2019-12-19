@@ -1,4 +1,4 @@
-#         AB-MBLAP (AntiBody Machine Learning Based Affinity Prediction)  
+#         Predicting Antibody Affinity Changes upon Mutations by Combining Multiple Predictors  
 
 
 
