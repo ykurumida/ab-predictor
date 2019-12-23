@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from scipy import stats
-from sklearn.svm import SVR
 from sklearn import datasets
 from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
@@ -36,11 +35,10 @@ def calc_gpr(df, kf):
     df_gpr = df.copy()
     df_gpr = standardization(df_gpr)  # standardization
     for train, test in kf.split(df_gpr):
-        kernel = (sk_kern.RBF(1.0, (1e-3, 1e3)) +
-                  sk_kern.ConstantKernel(1.0, (1e-3, 1e3)) +
+        kernel = (sk_kern.RBF() +
+                  sk_kern.ConstantKernel() +
                   sk_kern.WhiteKernel())
-
-        gp_rbf = GaussianProcessRegressor(kernel=kernel)
+        
 
         # separeting data
         train_df = df_gpr.iloc[train]
@@ -51,42 +49,15 @@ def calc_gpr(df, kf):
         test_y = test_df['EXPL']
 
         # training
+        gp_rbf = GaussianProcessRegressor(kernel=kernel)
         gp_rbf.fit(train_X, train_y)
+
 
         # Varidation
         test_gp = gp_rbf.predict(test_X)
         gp_corr = np.corrcoef(test_y, test_gp)[0, 1]
         GP_corr_list.append(gp_corr)
     return str(mean(GP_corr_list))
-
-
-def calc_svr(df, kf):
-    SVR_corr_list = []
-    df_svr = df.copy()
-    df_svr = standardization(df_svr)  # standardization
-    for train, test in kf.split(df_svr):
-        svr_rbf = SVR(kernel='rbf')
-        kernel = (sk_kern.RBF(1.0, (1e-3, 1e3)) +
-                  sk_kern.ConstantKernel(1.0, (1e-3, 1e3)) +
-                  sk_kern.WhiteKernel())
-
-
-        # separeting data
-        train_df = df_svr.iloc[train]
-        test_df = df_svr.iloc[test]
-        train_X = train_df.drop('EXPL', axis=1)
-        train_y = train_df['EXPL']
-        test_X = test_df.drop('EXPL', axis=1)
-        test_y = test_df['EXPL']
-
-        # training
-        svr_rbf.fit(train_X, train_y)
-
-        # Varidation
-        pred_svr = svr_rbf.predict(test_X)
-        svr_corr = np.corrcoef(test_y, pred_svr)[0, 1]
-        SVR_corr_list.append(svr_corr)
-    return str(mean(SVR_corr_list))
 
 
 def calc_rf(df, kf, seed):
@@ -171,8 +142,6 @@ def main():
     print('RFR_4\t' + calc_rf(df[FI4], kf, SEED))
     print('GPR\t' + calc_gpr(df_st, kf))
     print('GPR_4\t' + calc_gpr(df_st[FI4], kf))
-    print('SVR\t' + calc_svr(df_st, kf))
-    print('SVR_4\t' + calc_svr(df_st[FI4], kf))
 
     print(calc_mono(df, kf))
 

@@ -37,10 +37,8 @@ def main():
         df[predictor] = collect_data_mono(predictor, INPUT_PATH)
     df['Cons3'] = collect_data_mono('cons3', INPUT_PATH)
     df['Cons4'] = collect_data_mono('cons4', INPUT_PATH)
-    df['SVR'] = collect_data_mono('SVR', INPUT_PATH)
     df['GPR'] = collect_data_mono('GPR', INPUT_PATH)
     df['RFR'] = collect_data_mono('RFR', INPUT_PATH)
-    df['SVR_4'] = collect_data_mono('SVR_4', INPUT_PATH)
     df['GPR_4'] = collect_data_mono('GPR_4', INPUT_PATH)
     df['RFR_4'] = collect_data_mono('RFR_4', INPUT_PATH)
     if not os.path.isdir(OUTPUT_DIR):
