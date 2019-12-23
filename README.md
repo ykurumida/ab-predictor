@@ -8,11 +8,12 @@
 
 ## Required Packages
 
-- Python 2.7.5 or 3.7.2
-- numpy >= 1.16.3
-- pandas >= 0.24.2
-- scikit-learn >= 0.21.2
-- statistics >= 1.0.3.5
+The following is the list of required packeages and programs, as well as the version on which it was tested (in parenthesis).
+- Python (3.7.2)
+- numpy (1.16.3)
+- pandas (0.24.2)
+- scikit-learn (0.21.2)
+- statistics (1.0.3.5)
 
 
 
