@@ -1,38 +1,20 @@
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-/lustre7/home/lustre4/ykurumida/local/venv/seqlogo_190507/lib/python3.7/site-packages/sklearn/model_selection/_search.py:813: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
-  DeprecationWarning)
-cons4	0.6725189058852282
-cons3	0.6603819898531412
-RFR	0.6588829664039212
-RFR_4	0.6367224843991403
-GPR	0.6664738037248226
-GPR_4	0.6982535863100992
-SVR	0.6239852435115774
-SVR_4	0.6649195335416065
-SIE-Scwrlmut       0.601413
-SIE-Rosmut         0.598691
-SIE-Rosiface-sc    0.493469
-SIE-RosCDR-loop    0.555703
-Rosmut             0.619056
-Rosiface-sc        0.107684
-RosCDR-loop        0.272960
-FoldXB             0.244209
-FoldXS             0.523924
-DS_BIND            0.546953
-DS_STABLE          0.403279
-mCSM               0.529337
-energy             1.000000
+cons4	0.6568591345532666
+cons3	0.6444502465175151
+RFR_4	0.6436230341324736
+RFR	0.6783090601860949
+GPR	0.6655041096666914
+GPR_4	0.6939225716132202
+SIE-Scwrlmut       0.592366
+SIE-Rosmut         0.588032
+SIE-Rosiface-sc    0.479734
+SIE-RosCDR-loop    0.541992
+Rosmut             0.609093
+Rosiface-sc        0.100432
+RosCDR-loop        0.264541
+FoldXS             0.231711
+FoldXB             0.509429
+DS-B               0.529540
+DS-S               0.398463
+mCSM-AB            0.525302
+EXPL               1.000000
 dtype: float64

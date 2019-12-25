@@ -19,7 +19,7 @@ SEED = int(args[2])
 NUM_SPLIT = 4
 CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'EXPL']
 CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'EXPL']
-FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS-B', 'mCSM', 'EXPL']
+FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS-B', 'mCSM-AB', 'EXPL']
 
 
 def standardization(df):
@@ -138,8 +138,8 @@ def main():
     print('cons4\t' + calc_cons(df[CONS4], kf))
     print('cons3\t' + calc_cons(df[CONS3], kf))
     df_st = standardization(df)
-    print('RFR\t' + calc_rf(df, kf, SEED))
     print('RFR_4\t' + calc_rf(df[FI4], kf, SEED))
+    print('RFR\t' + calc_rf(df, kf, SEED))
     print('GPR\t' + calc_gpr(df_st, kf))
     print('GPR_4\t' + calc_gpr(df_st[FI4], kf))
 
