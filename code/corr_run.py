@@ -18,7 +18,7 @@ INPUT_PATH = args[1]
 SEED = int(args[2])
 NUM_SPLIT = 4
 CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'EXPL']
-CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'EXPL']
+CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXS', 'EXPL']
 FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS-B', 'mCSM-AB', 'EXPL']
 
 
@@ -97,7 +97,6 @@ def calc_rf(df, kf, seed):
 def calc_mono(df, kf):
     mono_list = []
     df_mono = df.copy()
-    df_mono = standardization(df_mono)  # standardization
     for data in kf.split(df_mono):
         train, test = data
         test_df = df_mono.iloc[test]
@@ -112,14 +111,13 @@ def calc_mono(df, kf):
 def calc_cons(df, kf):
     cons_list = []
     df_cons = df.copy()
-    df_cons = standardization(df_cons)  # standardization
     for data in kf.split(df_cons):
         train, test = data
         test_df = df_cons.iloc[test]
         test_X = test_df.drop('EXPL', axis=1)
         test_y = test_df['EXPL']
 
-        test_cons = test_X.apply(calc_zscore, axis=0).sum(axis=1) 
+        test_cons = test_X.apply(calc_zscore, axis=0).mean(axis=1) 
         cons_corr = np.corrcoef(test_y, test_cons)[0, 1]
         cons_list.append(cons_corr)
     return str(mean(cons_list))
