@@ -17,14 +17,14 @@ args = sys.argv
 INPUT_PATH = args[1]
 SEED = int(args[2])
 NUM_SPLIT = 4
-CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'EXPL']
-CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXS', 'EXPL']
-FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS-B', 'mCSM-AB', 'EXPL']
+CONS4 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXB', 'FoldXS', 'EXPT']
+CONS3 = ['SIE-Scwrlmut', 'Rosmut', 'FoldXS', 'EXPT']
+FI4 = ['SIE-Scwrlmut', 'Rosmut', 'DS-B', 'mCSM-AB', 'EXPT']
 
 
 def standardization(df):
-    y = df['EXPL']
-    X = df.drop('EXPL', axis=1)
+    y = df['EXPT']
+    X = df.drop('EXPT', axis=1)
     X = (X - X.values.mean()) / X.values.std(ddof=0)
     df = pd.concat([X, y], axis=1)
     return df
@@ -43,10 +43,10 @@ def calc_gpr(df, kf):
         # separeting data
         train_df = df_gpr.iloc[train]
         test_df = df_gpr.iloc[test]
-        train_X = train_df.drop('EXPL', axis=1)
-        train_y = train_df['EXPL']
-        test_X = test_df.drop('EXPL', axis=1)
-        test_y = test_df['EXPL']
+        train_X = train_df.drop('EXPT', axis=1)
+        train_y = train_df['EXPT']
+        test_X = test_df.drop('EXPT', axis=1)
+        test_y = test_df['EXPT']
 
         # training
         gp_rbf = GaussianProcessRegressor(kernel=kernel)
@@ -69,10 +69,10 @@ def calc_rf(df, kf, seed):
         train, test = data
         train_df = df_rf.iloc[train]
         test_df = df_rf.iloc[test]
-        train_X = train_df.drop('EXPL', axis=1)
-        train_y = train_df['EXPL']
-        test_X = test_df.drop('EXPL', axis=1)
-        test_y = test_df['EXPL']
+        train_X = train_df.drop('EXPT', axis=1)
+        train_y = train_df['EXPT']
+        test_X = test_df.drop('EXPT', axis=1)
+        test_y = test_df['EXPT']
 
         # training
         forest = RandomForestRegressor(random_state=seed)
@@ -102,7 +102,7 @@ def calc_mono(df, kf):
         test_df = df_mono.iloc[test]
 
         mono_corr = test_df.corr(method='pearson')
-        mono_list.append(mono_corr['EXPL'])
+        mono_list.append(mono_corr['EXPT'])
 
     df_corr = pd.concat(mono_list, axis=1).mean(axis='columns')
     return df_corr
@@ -114,8 +114,8 @@ def calc_cons(df, kf):
     for data in kf.split(df_cons):
         train, test = data
         test_df = df_cons.iloc[test]
-        test_X = test_df.drop('EXPL', axis=1)
-        test_y = test_df['EXPL']
+        test_X = test_df.drop('EXPT', axis=1)
+        test_y = test_df['EXPT']
 
         test_cons = test_X.apply(calc_zscore, axis=0).mean(axis=1) 
         cons_corr = np.corrcoef(test_y, test_cons)[0, 1]
