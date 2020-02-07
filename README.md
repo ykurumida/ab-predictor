@@ -31,6 +31,3 @@ python fi_analysis.py # calculate feature importance
 
 Y. Kurumida, Y. Saito, and T. Kameda (Submitted)
 
-## License
-
-???
