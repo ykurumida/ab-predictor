@@ -17,7 +17,7 @@ The following is the list of required packeages and programs, as well as the ver
 
 
 
-## Usage
+## Cross Validation
 
 ```bash
 python corr_run.py ../Input/ddG.csv [SEED] # calculate peason's correlation each seed
@@ -25,6 +25,11 @@ python analysis.py # calculate mean and SE of the peason's correlation
 python fi_analysis.py # calculate feature importance
 ```
 
+## Blind Test
+
+ ```bash
+ python pred_holdout.py ../Input/test_2bdn_3bdy.csv ${SEED}
+ ```
 
 
 ## Reference
