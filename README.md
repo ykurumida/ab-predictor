@@ -34,5 +34,5 @@ python fi_analysis.py # calculate feature importance
 
 ## Reference
 
-Y. Kurumida, Y. Saito, and T. Kameda (Submitted)
+Kurumida Y, Saito Y, Kameda T. Predicting antibody affinity changes upon mutations by combining multiple predictors. Sci Rep. 2020 Nov 11;10(1):19533. doi: 10.1038/s41598-020-76369-8. 
 
